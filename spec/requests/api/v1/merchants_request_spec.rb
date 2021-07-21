@@ -1,18 +1,28 @@
 require 'rails_helper'
 
-RSpec.describe 'merchants api' do
-  before :each do
-    get api_v1_merchants_path
-  end
+RSpec.describe 'merchants' do
 
-  describe 'index' do
-    it 'can list 20 merchants' do
-      create_list(:merchant, 20)
-      require 'pry'; binding.pry
+  describe 'merchant#index' do
+    it 'each page lists 20 merchants' do
+      create_list(:merchant, 45)
+      get api_v1_merchants_path
       expect(response).to be_successful
 
       merchants = JSON.parse(response.body)
-      expect(merchants.size).to be <= 20
+      expect(merchants.count).to be <= 20
+
+      get api_v1_merchants_path(page: 2)
+      expect(merchants.count).to be <= 20
+    end
+  end
+
+  describe 'merchant#show' do
+    it 'can get one merchant' do
+      get api_v1_merchants_path(id: 1)
+      expect(response).to be_successful
+
+      merchant = JSON.parse(response.body)
+      expect(merchant.count).to be == 1
     end
   end
 end
