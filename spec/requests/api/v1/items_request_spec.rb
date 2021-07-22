@@ -51,18 +51,45 @@ RSpec.describe 'items' do
     end
   end
 
+  describe 'item#update' do
+    it 'can update a item' do
+      merchant1 = create(:merchant)
+      item1 = create(:item, merchant: merchant1)
+
+      old_name = item1.name
+
+      item_params = { name: 'new_name' }
+
+      put "/api/v1/items/#{item1.id}", params: JSON.generate({item: item_params})
+
+      new_item = Item.find(item1.id)
+
+      expect(response).to be_successful
+      expect(new_item.name).to eq(item_params[:name])
+      expect(new_item.name).not_to eq(old_name)
+    end
+  end
+
   describe 'item#create' do
     it 'can create a item' do
       merchant1 = create(:merchant)
       expect(merchant1.items.count).to be == 0
 
-      post '/api/v1/items', params: {name: 'test', description: 'testing testing', unit_price: 11.11, merchant_id: merchant1.id}
+      item_params = ({
+                name: 'item name',
+                describtion: 'item description',
+                unit_price: '10.00',
+                merchant_id: merchant1.id
+              })
+
+      post '/api/v1/items', params: JSON.generate({item: item_params})
+
       expect(response).to be_successful
       expect(merchant1.items.count).to be == 1
-      expect(merchant1.items.first.name).to eq 'test'
-      expect(merchant1.items.first.description).to eq 'testing testing'
-      expect(merchant1.items.first.unit_price).to eq 11.11
-      expect(merchant1.items.first.merchant_id).to eq merchant1.id
+      expect(merchant1.items.first.name).to eq("item1")
+      expect(merchant1.items.first.description).to eq("this is a item")
+      expect(merchant1.items.first.unit_price).to eq(11.11)
+      expect(merchant1.items.first.merchant_id).to eq(merchant1.id)
     end
   end
 
@@ -72,7 +99,7 @@ RSpec.describe 'items' do
       item1 = create(:item, merchant: merchant1)
       expect(merchant1.items.count).to be == 1
 
-      delete api_v1_item_path(id: item1.id)
+      delete "/api/v1/items/#{item1.id}"
 
       expect(response).to be_successful
       expect(merchant1.items.count).to be == 0
