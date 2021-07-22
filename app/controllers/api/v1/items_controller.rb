@@ -1,4 +1,9 @@
 class Api::V1::ItemsController < ApplicationController
+
+  def find_item
+    Item.find(params[:id])
+  end
+
   def index
     if params[:merchant_id]
       Merchant.find(params[:merchant_id])
@@ -14,24 +19,27 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def show
-    render json: ItemSerializer.new(Item.find(params[:id]))
+    render json: (ItemSerializer.new(find_item)).serializable_hash
   end
 
   def update
-    render json: ItemSerializer.new(Item.find(params[:id]).update(item_params))
+    if find_item.update(item_params)
+      render json: (ItemSerializer.new(find_item)).serializable_hash, status: :ok
+    end
   end
 
   def create
-    render json: ItemSerializer.new(Item.create!(item_params))
+    item = Item.create(item_params)
+    render json: ItemSerializer.new(item).serializable_hash, status: :created
   end
 
   def destroy
-    render json: ItemSerializer.new(Item.find(params[:id]).destroy)
+    find_item.destroy
   end
 
   private
 
   def item_params
-    params.permit(:merchant_id, :name, :description, :unit_price)
+    params.permit(:name, :description, :unit_price, :merchant_id)
   end
 end

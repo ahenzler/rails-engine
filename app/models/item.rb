@@ -5,5 +5,5 @@ class Item < ApplicationRecord
   validates :description, presence: true
   validates :unit_price, presence: true
 
-    self.per_page = 20
+  self.per_page = 20
 end
