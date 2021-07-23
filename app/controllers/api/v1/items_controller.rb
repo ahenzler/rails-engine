@@ -5,17 +5,12 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def index
-    if params[:merchant_id]
-      Merchant.find(params[:merchant_id])
-      render json: ItemSerializer.new(Item.where(merchant_id: params[:merchant_id]))
+    if params[:page].to_i >= 1
+      items = Item.paginate(page: params[:page], per_page: params[:per_page])
     else
-      if params[:page].to_i >= 1
-        items = Item.paginate(page: params[:page], per_page: params[:per_page])
-      else
-        items = Item.paginate(page: "1", per_page: params[:per_page])
-      end
-      render json: (ItemSerializer.new(items)).serializable_hash
+      items = Item.paginate(page: "1", per_page: params[:per_page])
     end
+    render json: (ItemSerializer.new(items)).serializable_hash
   end
 
   def show

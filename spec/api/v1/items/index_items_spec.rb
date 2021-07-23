@@ -21,21 +21,5 @@ RSpec.describe 'items' do
       expect(items[:data].first[:attributes]).to be_a(Hash)
 
     end
-
-    it 'has only one merchants items listed' do
-      merchant1 = create(:merchant)
-      merchant2 = create(:merchant)
-      create_list(:item, 51, merchant: merchant1)
-      create_list(:item, 53, merchant: merchant2)
-
-      get '/api/v1/items', params: {merchant_id: merchant1.id}
-
-      expect(response).to be_successful
-
-      items = JSON.parse(response.body, symbolize_names: true)
-
-      expect(items[:data].first[:attributes][:merchant_id]).to eq(merchant1.id)
-
-    end
   end
 end
