@@ -17,7 +17,7 @@ RSpec.describe 'item_search' do
     expect(items).to be_a(Hash)
     end
 
-    it 'will error out' do
+    it 'will return objevt without name' do
 
       get '/api/v1/items/find_all'
 
