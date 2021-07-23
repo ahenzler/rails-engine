@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
   describe 'relationships' do
-    it { should belong_to(:merchant)}
-    it { should have_many :invoice_items}
+    it { should belong_to(:merchant) }
+    it { should have_many :invoice_items }
     it { should have_many(:invoices).through(:invoice_items) }
   end
 
@@ -21,8 +21,8 @@ RSpec.describe Item, type: :model do
       item3 = create(:item, name: 'item3', merchant: merchant)
       item4 = create(:item, name: 'item4', merchant: merchant)
 
-      expect(Item.find_all("item1")).to eq([item1])
-      expect(Item.find_all("it")).to eq([item1, item2, item3, item4])
+      expect(Item.find_all('item1')).to eq([item1])
+      expect(Item.find_all('it')).to eq([item1, item2, item3, item4])
     end
   end
 end
