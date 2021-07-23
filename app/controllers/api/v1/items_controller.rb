@@ -25,12 +25,18 @@ class Api::V1::ItemsController < ApplicationController
   def update
     if find_item.update(item_params)
       render json: (ItemSerializer.new(find_item)).serializable_hash, status: :ok
+    else
+      render json: {errors: find_item.errors}, status: :unprocessable_entity
     end
   end
 
   def create
-    item = Item.create(item_params)
-    render json: ItemSerializer.new(item).serializable_hash, status: :created
+    item = Item.create!(item_params)
+    if item.save
+      render json: ItemSerializer.new(item).serializable_hash, status: :created
+    else
+      render json: item.errors, status: :unprocessable_entity
+    end
   end
 
   def destroy
