@@ -10,4 +10,9 @@ class Item < ApplicationRecord
   def self.item_merchant(item_id)
     find(item_id).merchant
   end
+
+  def self.find_all(item_name)
+    where("name iLIKE :search", search: "%#{item_name}%")
+    .order(:name)
+  end
 end

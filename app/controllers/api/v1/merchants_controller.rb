@@ -12,4 +12,13 @@ class Api::V1::MerchantsController < ApplicationController
     merchant = Merchant.find(params[:id])
     render json: MerchantSerializer.new(merchant).serializable_hash
   end
+
+  def search
+    if params[:name] && params[:name].class == String
+      merchant = Merchant.find_merchant(params[:name])
+      render json: MerchantSerializer.new(merchant).serializable_hash
+    else
+      render json: { errors: "Merchant not found" }
+    end
+  end
 end
