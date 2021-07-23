@@ -6,7 +6,6 @@ class Merchant < ApplicationRecord
   self.per_page = 20
 
   def self.merchant_items(merchant_id)
-    items = Item.where(merchant_id: merchant_id)
-    items.order(:name)
+    find(merchant_id).items
   end
 end
