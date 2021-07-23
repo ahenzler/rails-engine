@@ -6,7 +6,7 @@ RSpec.describe 'merchants' do
       create(:merchant, name: 'merchant1')
       create(:merchant, name: 'merchant2')
 
-      get api_merchants_path, params: { name: 'merchant1' }
+      get '/api/v1/merchants/find?name=merchant1'
 
       expect(response).to be_successful
 
