@@ -19,7 +19,6 @@ RSpec.describe 'items' do
       expect(items[:data].size).to eq(20)
       expect(items[:data].first).to have_key(:attributes)
       expect(items[:data].first[:attributes]).to be_a(Hash)
-
     end
   end
 end

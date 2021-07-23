@@ -8,8 +8,8 @@ RSpec.describe 'merchants' do
       expect(response).to be_successful
 
       merchant = JSON.parse(response.body)
-      expect(merchant["data"]["id"]).to eq merchant1.id.to_s
-      expect(merchant["data"]["attributes"]["name"]).to eq merchant1.name
+      expect(merchant['data']['id']).to eq merchant1.id.to_s
+      expect(merchant['data']['attributes']['name']).to eq merchant1.name
       expect(merchant.count).to be == 1
     end
   end

@@ -8,7 +8,7 @@ RSpec.describe 'items' do
 
       old_name = item1.name
 
-      put "/api/v1/items/#{item1.id}", params: {name: 'new name'}
+      put "/api/v1/items/#{item1.id}", params: { name: 'new name' }
 
       expect(response).to be_successful
 

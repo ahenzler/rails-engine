@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'merchants' do
-
   describe 'index' do
     it 'each page lists 20 merchants' do
       create_list(:merchant, 45)

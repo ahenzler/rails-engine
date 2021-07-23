@@ -4,7 +4,7 @@ class Api::V1::Merchants::MerchantsSearchController < ApplicationController
       merchant = Merchant.find_merchant(params[:name])
       render json: MerchantSerializer.new(merchant).serializable_hash
     else
-      render json: { errors: "Please provide a valid name" }
+      render json: { errors: 'Please provide a valid name' }
     end
   end
 end

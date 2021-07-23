@@ -12,7 +12,7 @@ class Item < ApplicationRecord
   end
 
   def self.find_all(item_name)
-    where("name iLIKE :search", search: "%#{item_name}%")
-    .order(:name)
+    where('name iLIKE :search', search: "%#{item_name}%")
+      .order(:name)
   end
 end

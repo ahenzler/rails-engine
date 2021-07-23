@@ -16,7 +16,7 @@ RSpec.describe 'items merchant' do
       expect(item_merchant).to have_key(:data)
       expect(item_merchant[:data]).to be_a(Hash)
       expect(item_merchant[:data]).to have_key(:id)
-      expect(item_merchant[:data][:id]).to eq("#{merchant.id}")
+      expect(item_merchant[:data][:id]).to eq(merchant.id.to_s)
       expect(item_merchant[:data]).to have_key(:type)
       expect(item_merchant[:data][:type]).to eq('merchant')
       expect(item_merchant[:data]).to have_key(:attributes)

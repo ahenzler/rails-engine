@@ -10,9 +10,9 @@ class Merchant < ApplicationRecord
   end
 
   def self.find_merchant(merchant_name)
-    where("name iLIKE :search", search: "%#{merchant_name}%")
-    .order(:name)
-    .limit(1)
-    .first
+    where('name iLIKE :search', search: "%#{merchant_name}%")
+      .order(:name)
+      .limit(1)
+      .first
   end
 end

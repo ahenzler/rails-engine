@@ -5,7 +5,9 @@ RSpec.describe 'items' do
     it 'can create a item' do
       merchant1 = create(:merchant)
 
-      post '/api/v1/items', params: {name: 'name', description: 'item description is this.', unit_price: 10.00, merchant_id: merchant1.id}
+      post '/api/v1/items',
+           params: { name: 'name', description: 'item description is this.', unit_price: 10.00,
+                     merchant_id: merchant1.id }
 
       expect(response).to be_successful
 
